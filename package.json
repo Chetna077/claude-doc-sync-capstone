@@ -1,0 +1,17 @@
+{
+  "name": "claude-doc-sync",
+  "version": "0.1.0",
+  "description": "Deterministic Markdown placeholder filler: verifies {{Placeholder}} tokens against real repo state (package.json, git metadata) and marks anything unverifiable as Not Found.",
+  "private": true,
+  "main": "src/run.js",
+  "bin": {
+    "claude-doc-sync": "bin/claude-doc-sync.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "license": "MIT"
+}
