@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "PreCommit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/pre-commit-secret-guard.sh"
+          }
+        ]
+      }
+    ],
+    "PostImplementation": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/post-impl-doc-check.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>claude-doc-sync — Real Before/After Demo</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; background: #0f1115; color: #e6e6e6; }
+  h1 { font-size: 1.4rem; }
+  p.sub { color: #9aa0a6; }
+  .columns { display: flex; gap: 24px; margin-top: 24px; }
+  .col { flex: 1; background: #1a1d23; border: 1px solid #2b2f38; border-radius: 8px; padding: 16px; }
+  .col h2 { margin-top: 0; font-size: 1rem; color: #9aa0a6; text-transform: uppercase; letter-spacing: 0.05em; }
+  pre { white-space: pre-wrap; font-size: 0.85rem; line-height: 1.5; margin: 0; }
+  .placeholder { color: #e8a33d; }
+  .found { color: #6bd68a; font-weight: 600; }
+  .notfound { color: #e8615c; font-weight: 600; }
+  .summary { margin-top: 20px; padding: 12px 16px; background: #1a1d23; border-left: 3px solid #6bd68a; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <h1>claude-doc-sync — real before/after</h1>
+  <p class="sub">This is not a mockup. Both sides below are the real template and the real output produced by
+     running <code>node bin/claude-doc-sync.js --template templates/project-doc.template.md --repo . --out ...</code>
+     against this project's own repository.</p>
+
+  <div class="columns">
+    <div class="col">
+      <h2>Before — raw template</h2>
+      <pre># <span class="placeholder">{{ProjectName}}</span>
+
+<span class="placeholder">{{Description}}</span>
+
+- **Main entry point:** <span class="placeholder">{{MainEntryPoint}}</span>
+- **Author:** <span class="placeholder">{{Author}}</span>
+- **License:** <span class="placeholder">{{License}}</span>
+- **Test command:** <span class="placeholder">{{TestCommand}}</span>
+
+## Dependencies
+
+- Runtime: <span class="placeholder">{{Dependencies}}</span>
+- Dev: <span class="placeholder">{{DevDependencies}}</span>
+
+## Repository
+
+- Last commit date: <span class="placeholder">{{LastCommitDate}}</span>
+- Last commit author: <span class="placeholder">{{LastCommitAuthor}}</span></pre>
+    </div>
+
+    <div class="col">
+      <h2>After — real filled output</h2>
+      <pre># claude-doc-sync
+
+<span class="found">Deterministic Markdown placeholder filler: verifies {{Placeholder}} tokens against real repo state (package.json, git metadata) and marks anything unverifiable as Not Found.</span>
+
+- **Main entry point:** <span class="found">src/run.js</span>
+- **Author:** <span class="notfound">Not Found</span>
+- **License:** <span class="found">MIT</span>
+- **Test command:** <span class="found">node --test</span>
+
+## Dependencies
+
+- Runtime: <span class="notfound">Not Found</span>
+- Dev: <span class="notfound">Not Found</span>
+
+## Repository
+
+- Last commit date: <span class="found">2026-09-28T18:39:34+05:30</span>
+- Last commit author: <span class="found">Chetna Deshwal</span></pre>
+    </div>
+  </div>
+
+  <div class="summary" id="summary">
+    7 / 10 placeholders found. The 3 <span class="notfound">Not Found</span> results (Author, Dependencies,
+    DevDependencies) are honest — this repository genuinely has no <code>author</code> field and zero
+    dependencies of either kind. Nothing here was guessed.
+  </div>
+</body>
+</html>
