@@ -53,3 +53,20 @@ test('CLI: missing --template flag exits 1', () => {
   assert.equal(result.status, 1);
   assert.match(result.stderr, /--template <path> is required/);
 });
+
+test('CLI: --out same as --template is rejected and the template is left untouched', () => {
+  const repoDir = createTempDir();
+  try {
+    const templatePath = path.join(repoDir, 'template.md');
+    const originalText = '# {{ProjectName}}\n';
+    fs.writeFileSync(templatePath, originalText);
+
+    const result = runCli(['--template', templatePath, '--repo', repoDir, '--out', templatePath]);
+
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /--out must not be the same path as --template/);
+    assert.equal(fs.readFileSync(templatePath, 'utf8'), originalText);
+  } finally {
+    removeDir(repoDir);
+  }
+});

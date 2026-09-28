@@ -45,6 +45,11 @@ function main() {
   const defaultOutName = `${path.basename(templatePath, path.extname(templatePath))}.filled.md`;
   const outPath = path.resolve(args.out || path.join(process.cwd(), defaultOutName));
 
+  if (outPath === templatePath) {
+    fail('--out must not be the same path as --template (the template is never modified)');
+    return;
+  }
+
   try {
     const { total, found } = run({ templatePath, repoPath, outPath });
     process.stdout.write(`${found} / ${total} placeholders found.\n`);
