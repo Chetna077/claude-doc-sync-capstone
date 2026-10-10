@@ -26,3 +26,8 @@ guess. Zero runtime dependencies. Full rules are in
 Never accept a value that cannot be traced back to a real file or command
 output. If a step agent is unsure whether something is verifiable, the answer
 is `Not Found`, not an assumption.
+
+## Skills
+- Use the `jira-story-readiness` skill at step 1.
+- Use the `code-review-checklist` skill at step 6.
+- Use the `pr-description-writer` skill at step 8.

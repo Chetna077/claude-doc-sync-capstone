@@ -32,3 +32,7 @@ You are a senior Node.js developer.
 - Passing tests with real output pasted; zero new runtime dependencies; no commits without approval.
 - Never guess: anything not traceable to `package.json` or `git log` is `Not Found`.
 - Stop and ask the human for approval before moving on.
+
+## Skills
+- Use the `placeholder-verifier` skill when writing or changing any resolver in src/resolvers/.
+- Use the `git-metadata-reader` skill when resolving LastCommitDate or LastCommitAuthor.

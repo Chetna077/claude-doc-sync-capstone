@@ -34,3 +34,7 @@ You are a peer code reviewer.
 - `generatedDocs/code-review.md`, one section per area.
 - Never guess: anything not traceable to `package.json` or `git log` is `Not Found`.
 - Stop and ask the human for approval before moving on.
+
+## Skills
+- Use the `code-review-checklist` skill to run the seven-area review.
+- Use the `placeholder-verifier` skill to confirm each value is justified by real data.

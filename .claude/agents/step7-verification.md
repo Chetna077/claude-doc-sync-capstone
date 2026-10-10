@@ -34,3 +34,6 @@ You are a QA engineer.
 - `generatedDocs/verification-report.md` with real output and a pass/fail verdict.
 - Never guess: anything not traceable to `package.json` or `git log` is `Not Found`.
 - Stop and ask the human for approval before moving on.
+
+## Skills
+- Use the `placeholder-verifier` skill to check every filled value against its source.
