@@ -1,7 +1,7 @@
 # Handoff — claude-doc-sync (Claude Code)
 
 ## State
-Branch `feature/implementation`. 115 unit/integration/CLI tests passing, plus a Playwright e2e. Zero runtime dependencies.
+Branch `feature/implementation`. 117 unit/integration/CLI tests passing, plus a Playwright e2e. Zero runtime dependencies.
 
 ## How to run
 ```

@@ -15,7 +15,7 @@
 ## Tool events
 - Hooks: `PreToolUse` (Bash) → `pretool-commit-guard.sh`; `PostToolUse` (Edit|Write) and `Stop` → `post-impl-doc-check.sh`.
 - MCP: `atlassian`, `github` via `.mcp.json`.
-- Test evidence: `npm test` → 115 pass, 0 fail; Playwright e2e against `demo.html`.
+- Test evidence: `npm test` → 117 pass, 0 fail; Playwright e2e against `demo.html`.
 
 ## Human-in-the-loop checkpoints
 
