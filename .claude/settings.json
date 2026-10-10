@@ -25,6 +25,10 @@
           {
             "type": "command",
             "command": "bash .claude/hooks/scripts/post-impl-doc-check.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/check-skills-applied.sh generatedDocs"
           }
         ]
       }

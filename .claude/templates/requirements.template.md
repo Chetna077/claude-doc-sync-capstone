@@ -8,3 +8,6 @@
 - [pending] …
 ## Traceability
 Jira: <key> · Confluence: <link>
+
+## Skills applied
+- skill-name: what it checked and the result

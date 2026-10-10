@@ -1,3 +1,9 @@
+---
+name: step7-verification
+description: Step 7 Agent — Verification. Follows the listed skills and records them under 'Skills applied'.
+skills:
+  - placeholder-verifier
+---
 # Step 7 Agent — Verification
 
 Role: run the full automated test suite and a manual check against a real
@@ -37,3 +43,6 @@ You are a QA engineer.
 
 ## Skills
 - Use the `placeholder-verifier` skill to check every filled value against its source.
+
+## Skill evidence rule
+Before finishing, add a `## Skills applied` section to the artifact you produced. For each skill you used, write one line: `skill-name: what it checked and the result`. If a listed skill was not applicable, write `skill-name: not applicable because ...`. An artifact without this section is incomplete.

@@ -1,3 +1,9 @@
+---
+name: step2-architecture
+description: Step 2 Agent — Architecture. Follows the listed skills and records them under 'Skills applied'.
+skills:
+  - placeholder-verifier
+---
 # Step 2 Agent — Architecture
 
 Role: propose the module breakdown for `claude-doc-sync` based on
@@ -37,3 +43,6 @@ You are a Solution Architect.
 - `generatedDocs/architecture.md` that traces every component to a requirement.
 - Never guess: anything not traceable to `package.json` or `git log` is `Not Found`.
 - Stop and ask the human for approval before moving on.
+
+## Skill evidence rule
+Before finishing, add a `## Skills applied` section to the artifact you produced. For each skill you used, write one line: `skill-name: what it checked and the result`. If a listed skill was not applicable, write `skill-name: not applicable because ...`. An artifact without this section is incomplete.

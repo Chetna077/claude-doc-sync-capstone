@@ -1,3 +1,11 @@
+---
+name: master-sdlc
+description: Master SDLC Agent — claude-doc-sync. Follows the listed skills and records them under 'Skills applied'.
+skills:
+  - jira-story-readiness
+  - code-review-checklist
+  - pr-description-writer
+---
 # Master SDLC Agent — claude-doc-sync
 
 Coordinates the 8-step Agentic SDLC cycle for this project. Delegates to the
@@ -31,3 +39,6 @@ is `Not Found`, not an assumption.
 - Use the `jira-story-readiness` skill at step 1.
 - Use the `code-review-checklist` skill at step 6.
 - Use the `pr-description-writer` skill at step 8.
+
+## Skill evidence rule
+Before finishing, add a `## Skills applied` section to the artifact you produced. For each skill you used, write one line: `skill-name: what it checked and the result`. If a listed skill was not applicable, write `skill-name: not applicable because ...`. An artifact without this section is incomplete.

@@ -1,3 +1,10 @@
+---
+name: step5-implementation
+description: Step 5 Agent — Implementation. Follows the listed skills and records them under 'Skills applied'.
+skills:
+  - placeholder-verifier
+  - git-metadata-reader
+---
 # Step 5 Agent — Implementation
 
 Role: implement exactly what `generatedDocs/impl-plan.md` describes, in
@@ -36,3 +43,6 @@ You are a senior Node.js developer.
 ## Skills
 - Use the `placeholder-verifier` skill when writing or changing any resolver in src/resolvers/.
 - Use the `git-metadata-reader` skill when resolving LastCommitDate or LastCommitAuthor.
+
+## Skill evidence rule
+Before finishing, add a `## Skills applied` section to the artifact you produced. For each skill you used, write one line: `skill-name: what it checked and the result`. If a listed skill was not applicable, write `skill-name: not applicable because ...`. An artifact without this section is incomplete.
