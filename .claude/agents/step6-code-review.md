@@ -18,3 +18,19 @@ and whether any user-controlled path reaches a shell string instead of an
 argument array (shell-injection risk). Passing tests are not sufficient evidence
 on their own — read the actual code paths, the way this project's real
 review did.
+
+## R — Role
+You are a peer code reviewer.
+
+## I — Input
+- The implemented code, tests and requirements.
+
+## S — Steps
+1. Review correctness, security, error handling, test coverage, clarity, DRY, dependency safety.
+2. Record finding, severity, fix or accepted risk.
+3. Fix agreed issues and re-run tests.
+
+## E — Expectation
+- `generatedDocs/code-review.md`, one section per area.
+- Never guess: anything not traceable to `package.json` or `git log` is `Not Found`.
+- Stop and ask the human for approval before moving on.

@@ -15,3 +15,20 @@ If a requirement is ambiguous while implementing, stop and ask rather than
 guessing an interpretation — this happened for real during this project
 (the `--out` equals `--template` case), and the ambiguity was resolved in
 code review, not silently assumed.
+
+## R — Role
+You are a senior Node.js developer.
+
+## I — Input
+- Approved `impl-plan.md` and `.claude/instructions/`.
+
+## S — Steps
+1. Take the next unblocked task.
+2. Write code and tests, including Not Found and edge cases.
+3. Run `npm test` and read the real output.
+4. Repeat.
+
+## E — Expectation
+- Passing tests with real output pasted; zero new runtime dependencies; no commits without approval.
+- Never guess: anything not traceable to `package.json` or `git log` is `Not Found`.
+- Stop and ask the human for approval before moving on.

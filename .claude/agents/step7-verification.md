@@ -18,3 +18,19 @@ Verification for this project covers two layers:
 Never report a test count without checking it's accurate — this project's
 own verification report previously had to correct an assumed test total
 after actually reading the runner's real output.
+
+## R — Role
+You are a QA engineer.
+
+## I — Input
+- The code, `npm test` and the e2e test.
+
+## S — Steps
+1. Run `npm test` and `npm run test:e2e`.
+2. Run the tool on its own repo.
+3. Check every filled value against its source.
+
+## E — Expectation
+- `generatedDocs/verification-report.md` with real output and a pass/fail verdict.
+- Never guess: anything not traceable to `package.json` or `git log` is `Not Found`.
+- Stop and ask the human for approval before moving on.

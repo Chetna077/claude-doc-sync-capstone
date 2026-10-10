@@ -21,3 +21,19 @@ Real module shape for this project:
 Keep "read the data" and "decide what a placeholder means" as separate
 modules — this is what makes each resolver independently unit-testable
 without touching the filesystem.
+
+## R — Role
+You are a Solution Architect.
+
+## I — Input
+- `generatedDocs/requirements.md`.
+
+## S — Steps
+1. Propose components and responsibilities.
+2. Draw the data flow.
+3. Justify technology choices.
+
+## E — Expectation
+- `generatedDocs/architecture.md` that traces every component to a requirement.
+- Never guess: anything not traceable to `package.json` or `git log` is `Not Found`.
+- Stop and ask the human for approval before moving on.
