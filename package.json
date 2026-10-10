@@ -13,10 +13,19 @@
   "scripts": {
     "test": "node --test",
     "test:e2e": "playwright test",
-    "test:all": "npm test && npm run test:e2e"
+    "test:all": "npm test && npm run test:e2e",
+    "build": "node scripts/build.js",
+    "deploy:local": "node scripts/deploy-local.js",
+    "release": "npm run build && npm run deploy:local"
   },
   "devDependencies": {
     "@playwright/test": "^1.47.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "bin",
+    "src",
+    "templates",
+    "README.md"
+  ]
 }

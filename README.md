@@ -92,3 +92,11 @@ flowchart LR
 | Config | `.claude/config/app-profile.yml` | Single source of app facts |
 
 Traceability: `generatedDocs/trace-log.md` · Handoff: `generatedDocs/handoff.md`
+
+## Build and deploy
+```bash
+npm run build         # runs the tests, then creates dist/claude-doc-sync-<version>.tgz and dist/BUILD-INFO.json
+npm run deploy:local  # installs the artifact into .deploy/ and smoke-tests the installed CLI
+npm run release       # build + deploy:local
+```
+Gherkin test cases: `features/placeholder-sync.feature`; traceability to automated tests: `generatedDocs/test-cases.md`.
