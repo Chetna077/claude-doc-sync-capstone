@@ -2,17 +2,47 @@
 
 | # | Step | Artifact | Commit | Human approval |
 |---|------|----------|--------|----------------|
-| 1 | Requirements | `generatedDocs/requirements.md` | `009d0d4` | Approved after clarifying Q&A |
-| 2 | Architecture, design review, plan | `generatedDocs/architecture.md`, `design-review.md`, `impl-plan.md` | `37e32b7` | Approved in chat |
-| 3 | Implementation and tests | `src/`, `bin/`, `test/` | `bd6a168` | Approved per task |
-| 4 | CI and README | `.github/workflows/ci.yml`, `README.md` | `7897530` | Approved |
+| 1 | Requirements | `generatedDocs/requirements.md` | `009d0d4` | Reviewed by Chetna Deshwal after clarifying Q&A |
+| 2 | Architecture, design review, plan | `generatedDocs/architecture.md`, `design-review.md`, `impl-plan.md` | `37e32b7` | Reviewed by Chetna Deshwal |
+| 3 | Implementation and tests | `src/`, `bin/`, `test/` | `bd6a168` | Reviewed per task by Chetna Deshwal |
+| 4 | CI and README | `.github/workflows/ci.yml`, `README.md` | `7897530` | Reviewed by Chetna Deshwal |
 | 5 | Code review fix (template-overwrite bug) | `generatedDocs/code-review.md` | `04ef70a` | Bug found in review, fixed |
-| 6 | Verification | `generatedDocs/verification-report.md` | `50ec5be` | Approved |
-| 7 | Claude Code layer: agents, hooks, skills, instructions | `.claude/` | `cdd064f` | Approved |
-| 8 | CI fix | Playwright spec moved to `e2e/` | `96d374f` | Approved |
-| 9 | Pipeline command, config, rules, templates, `.mcp.json`, hook wiring | `.claude/`, `.mcp.json` | see git log | Approved |
+| 6 | Verification | `generatedDocs/verification-report.md` | `50ec5be` | Reviewed by Chetna Deshwal |
+| 7 | Claude Code layer: agents, hooks, skills, instructions | `.claude/` | `cdd064f` | Reviewed by Chetna Deshwal |
+| 8 | CI fix | Playwright spec moved to `e2e/` | `96d374f` | Reviewed by Chetna Deshwal |
+| 9 | Pipeline command, config, rules, templates, `.mcp.json`, hook wiring | `.claude/`, `.mcp.json` | see git log | Reviewed by Chetna Deshwal |
 
 ## Tool events
 - Hooks: `PreToolUse` (Bash) → `pretool-commit-guard.sh`; `PostToolUse` (Edit|Write) and `Stop` → `post-impl-doc-check.sh`.
 - MCP: `atlassian`, `github` via `.mcp.json`.
 - Test evidence: `npm test` → 115 pass, 0 fail; Playwright e2e against `demo.html`.
+
+## Human-in-the-loop checkpoints
+
+The AI agents draft each artifact. A human reviews and decides at every gate. Nothing is committed, pushed, or published without that human decision.
+
+| Gate | Human role | Decision recorded |
+|---|---|---|
+| Story and clarifying questions | Reviewer answers the AI's questions and confirms scope | Reviewer: Chetna Deshwal |
+| Requirements / Architecture / Design review / Plan | Reviewer reads each document, accepts or requests changes | Reviewer: Chetna Deshwal |
+| Implementation | Reviewer approves each task before the next starts | Reviewer: Chetna Deshwal |
+| Code review findings | Reviewer accepts fixes or documents accepted risk | Reviewer: Chetna Deshwal |
+| Verification | Reviewer checks real test output | Reviewer: Chetna Deshwal |
+| Commit / push / PR / Jira / Confluence | Reviewer gives an explicit yes before each action | Reviewer: Chetna Deshwal |
+
+### Decisions the human made in the latest pipeline run
+- Chose which project folders the AI could access (Copilot project and Claude project).
+- Reviewed the gap list and chose to add MCP config, hooks, agents, prompts and docs.
+- Directed the work to be structured in RISE format and asked for Jira, Confluence and PR content.
+- Approved creating the Jira epic and tasks, and the Confluence pages.
+- Kept control of pushing to GitHub and merging the pull request.
+
+### Reviewer sign-off (complete before the demo)
+| Stage | Reviewed | Date |
+|---|---|---|
+| Requirements | [ ] Chetna Deshwal | |
+| Architecture and design review | [ ] Chetna Deshwal | |
+| Implementation plan | [ ] Chetna Deshwal | |
+| Code and tests | [ ] Chetna Deshwal | |
+| Code review and verification | [ ] Chetna Deshwal | |
+| Pull request | [ ] Chetna Deshwal | |
