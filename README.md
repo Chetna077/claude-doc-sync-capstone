@@ -69,3 +69,26 @@ npm test
 
 No `dependencies` or `devDependencies` are used anywhere in this project —
 runtime code and tests both rely solely on Node.js built-in modules.
+
+## Agentic SDLC pipeline (Claude Code)
+
+<!-- agentic-pipeline -->
+```mermaid
+flowchart LR
+  P[/run-pipeline SCRUM-n/] --> M{{master-sdlc}}
+  M --> S1[step1 requirements] --> S2[step2 architecture] --> S3[step3 design review] --> S4[step4 plan]
+  S4 --> S5[step5 implement] --> S6[step6 code review] --> S7[step7 verify] --> S8[step8 PR]
+  H((Human approval)) -.-> S1 & S3 & S5 & S8
+```
+
+| Layer | Where | Purpose |
+|---|---|---|
+| Command | `.claude/commands/run-pipeline.md` | One-command start |
+| Agents | `.claude/agents/` | master + 8 step agents |
+| Skills | `.claude/skills/` | `placeholder-verifier`, `git-metadata-reader` |
+| Rules / instructions | `.claude/rules/`, `.claude/instructions/` | Not Found, human-in-the-loop, security, conventions |
+| Hooks | `.claude/settings.json` | Before: commit secret guard · After: doc-drift check · Stop: doc-drift |
+| MCP | `.mcp.json` | Atlassian and GitHub |
+| Config | `.claude/config/app-profile.yml` | Single source of app facts |
+
+Traceability: `generatedDocs/trace-log.md` · Handoff: `generatedDocs/handoff.md`
