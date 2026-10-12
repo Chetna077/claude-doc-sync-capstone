@@ -62,7 +62,7 @@ One real bug found and fixed, with a regression test. No other correctness
 gaps identified against the current requirements and architecture. Full
 suite (36 tests, including this fix's new test) passes via `npm test`.
 
-## Addendum: skills applied in the agentic pipeline run
+## Skills applied
 - code-review-checklist: confirmed the earlier template-overwrite fix is still covered by tests; added `test/hooks/hooks.test.js` (secret-guard blocks a staged token, skill validator passes). Tests: 115 to 117.
 - placeholder-verifier: every resolver in `src/resolvers/` returns a value read from `package.json` or `git log`, otherwise `null` (rendered as `Not Found`).
 - git-metadata-reader: `readGitLog` fails soft to `null` outside a git repo.

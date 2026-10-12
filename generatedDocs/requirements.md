@@ -112,3 +112,8 @@ Notes:
   `Not Found`; this is not a fatal error.
 - Duplicate placeholder tokens in the template are all replaced with the same
   resolved value.
+
+## Skills applied
+_Recorded in the skills-enforcement pass: each skill was checked against this document after it was written._
+- jira-story-readiness: user story and acceptance criteria present.
+- placeholder-verifier: requirement that every placeholder resolves from a verified source or `Not Found`.

@@ -105,3 +105,8 @@ itself, just to test execution.
 
 All 8 findings are folded into the implementation plan (`impl-plan.md`) as
 explicit line items rather than left as follow-up work.
+
+## Skills applied
+_Recorded in the skills-enforcement pass: each skill was checked against this document after it was written._
+- code-review-checklist: design findings rated and each given a resolution.
+- placeholder-verifier: no resolver is allowed to invent a value.

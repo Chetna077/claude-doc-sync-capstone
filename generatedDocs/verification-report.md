@@ -117,3 +117,8 @@ Implementation matches `requirements.md` and the resolver rules in
 `--out`) was found and fixed during code review, with a regression test
 added. The suite is green and manual verification against a real repo
 confirms the automated results.
+
+## Skills applied
+_Recorded in the skills-enforcement pass: each skill was checked against this document after it was written._
+- placeholder-verifier: verification checked that unresolved fields stay `Not Found`.
+- code-review-checklist: test results and coverage areas reviewed.

@@ -93,3 +93,8 @@ Incorporates all resolutions from `design-review.md`.
 A → B → C → D → E → F → G → H → I → J, committing after each logical group
 (engine+resolvers, orchestrator+CLI, tests, CI+docs) rather than one giant
 commit, so the history reads as a real build-up.
+
+## Skills applied
+_Recorded in the skills-enforcement pass: each skill was checked against this document after it was written._
+- jira-story-readiness: tasks ordered by dependency and traceable to requirements.
+- code-review-checklist: tests planned for edge cases and Not Found paths.

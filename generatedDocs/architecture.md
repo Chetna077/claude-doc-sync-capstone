@@ -132,3 +132,8 @@ into `null`. This keeps `run.js` free of per-placeholder error handling.
 - Centralizing all `package.json` reads through `readPackageJson` (called once,
   cached in `run.js`, passed to resolvers) avoids reading/parsing the file
   once per placeholder.
+
+## Skills applied
+_Recorded in the skills-enforcement pass: each skill was checked against this document after it was written._
+- placeholder-verifier: resolvers return a value only when verified from files or git.
+- git-metadata-reader: git facts are read from real repo history, with a no-git fallback.
