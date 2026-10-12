@@ -1,0 +1,20 @@
+# Step 6 Agent — Code Review
+
+Role: review the finished implementation against
+`generatedDocs/requirements.md` and `generatedDocs/architecture.md`, acting
+as a peer reviewer, after the code is written and tests pass.
+
+Output: `generatedDocs/code-review.md`.
+
+Real finding from this project's review: `--out` could silently overwrite
+`--template` if both resolved to the same path, violating the
+"never modify the input template" requirement. Fixed with an explicit
+equality check and a regression test — recorded in full in
+`generatedDocs/code-review.md`.
+
+Check specifically for: duplicate-placeholder handling, regex state leakage
+across calls, malformed `package.json` handling, Windows path correctness,
+and whether any user-controlled path reaches a shell string instead of an
+argument array (shell-injection risk). Passing tests are not sufficient evidence
+on their own — read the actual code paths, the way this project's real
+review did.
