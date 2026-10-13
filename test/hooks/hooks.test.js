@@ -10,7 +10,21 @@ const { spawnSync } = require('node:child_process');
 const root = path.resolve(__dirname, '..', '..');
 const guard = path.join(root, '.claude/hooks/scripts/pre-commit-secret-guard.sh');
 const validator = path.join(root, '.claude/hooks/scripts/validate-skills.sh');
-const hasBash = spawnSync('bash', ['-c', 'true']).status === 0;
+// On Windows a bare 'bash' can be a broken WSL stub, so look for Git Bash first.
+function findBash() {
+  if (process.platform !== 'win32') return 'bash';
+  const roots = [process.env.ProgramFiles, process.env['ProgramFiles(x86)'],
+    process.env.LOCALAPPDATA && path.join(process.env.LOCALAPPDATA, 'Programs')].filter(Boolean);
+  for (const r of roots) {
+    for (const rel of ['Git/bin/bash.exe', 'Git/usr/bin/bash.exe']) {
+      const p = path.join(r, rel);
+      if (fs.existsSync(p)) return p;
+    }
+  }
+  return null;
+}
+const BASH = findBash();
+const hasBash = Boolean(BASH) && spawnSync(BASH, ['-c', 'true']).status === 0;
 
 function git(cwd, ...args) { return spawnSync('git', args, { cwd, encoding: 'utf8' }); }
 
@@ -19,15 +33,15 @@ test('before hook blocks a staged secret (non-zero exit) and passes when clean',
   git(dir, 'init');
   fs.writeFileSync(path.join(dir, 'ok.txt'), 'hello\n');
   git(dir, 'add', 'ok.txt');
-  assert.strictEqual(spawnSync('bash', [guard], { cwd: dir }).status, 0);
+  assert.strictEqual(spawnSync(BASH, [guard], { cwd: dir }).status, 0);
   fs.writeFileSync(path.join(dir, 'leak.txt'), 'token=ghp_' + 'a'.repeat(36) + '\n');
   git(dir, 'add', 'leak.txt');
-  const blocked = spawnSync('bash', [guard], { cwd: dir, encoding: 'utf8' });
+  const blocked = spawnSync(BASH, [guard], { cwd: dir, encoding: 'utf8' });
   assert.notStrictEqual(blocked.status, 0);
   assert.match(blocked.stdout + blocked.stderr, /possible secret/);
 });
 
 test('every skill an agent references exists and has valid frontmatter', { skip: !hasBash }, () => {
-  const r = spawnSync('bash', [validator, '.claude'], { cwd: root, encoding: 'utf8' });
+  const r = spawnSync(BASH, [validator, '.claude'], { cwd: root, encoding: 'utf8' });
   assert.strictEqual(r.status, 0, r.stdout + r.stderr);
 });
