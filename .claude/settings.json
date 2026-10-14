@@ -17,6 +17,15 @@
             "command": "bash .claude/hooks/scripts/pretool-commit-guard.sh"
           }
         ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/scripts/read-guard.js"
+          }
+        ]
       }
     ],
     "Stop": [
@@ -40,6 +49,15 @@
           {
             "type": "command",
             "command": "bash .claude/hooks/scripts/post-impl-doc-check.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__.*atlassian.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/scripts/trim-mcp-output.js"
           }
         ]
       }
