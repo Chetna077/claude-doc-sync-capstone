@@ -43,3 +43,6 @@ You are a release manager.
 
 ## Skill evidence rule
 Before finishing, add a `## Skills applied` section to the artifact you produced. For each skill you used, write one line: `skill-name: what it checked and the result`. If a listed skill was not applicable, write `skill-name: not applicable because ...`. An artifact without this section is incomplete.
+
+## Token saving rule
+Follow `.claude/rules/token-saving.md` in every stage: request only the Jira fields you need, send only changed fields when writing to Jira or Confluence, and never read lockfiles or large files whole. Hooks enforce the size limits.

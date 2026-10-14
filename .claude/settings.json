@@ -26,6 +26,15 @@
             "command": "node .claude/hooks/scripts/read-guard.js"
           }
         ]
+      },
+      {
+        "matcher": "mcp__.*atlassian.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/scripts/atlassian-write-guard.js"
+          }
+        ]
       }
     ],
     "Stop": [
