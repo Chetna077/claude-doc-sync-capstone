@@ -67,6 +67,23 @@ test('dependencies: scoped names and version ranges are kept verbatim', () => {
   );
 });
 
+test('dependencies and devDependencies: a non-string version is Not Found', () => {
+  for (const bad of [{ b: 1 }, 1, null, true, ['1.0.0']]) {
+    assert.equal(resolvers.dependencies({ dependencies: { a: bad } }), null, JSON.stringify(bad));
+    assert.equal(resolvers.devDependencies({ devDependencies: { a: bad } }), null, JSON.stringify(bad));
+  }
+});
+
+test('dependencies: one invalid version makes the whole field Not Found, not a partial string', () => {
+  assert.equal(resolvers.dependencies({ dependencies: { good: '1.0.0', bad: { x: 1 } } }), null);
+  assert.equal(resolvers.devDependencies({ devDependencies: { bad: 2, good: '^1.0.0' } }), null);
+});
+
+test('dependencies: string versions, ranges and an empty string are still rendered', () => {
+  assert.equal(resolvers.dependencies({ dependencies: { a: '^1.0.0', b: 'file:../x' } }), 'a@^1.0.0, b@file:../x');
+  assert.equal(resolvers.dependencies({ dependencies: { a: '' } }), 'a@');
+});
+
 test('devDependencies: does not read from dependencies', () => {
   assert.equal(resolvers.devDependencies({ dependencies: { a: '1' } }), null);
 });

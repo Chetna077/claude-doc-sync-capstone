@@ -62,6 +62,37 @@ test('readPackageJson: package.json that is a directory returns null', () => {
   }
 });
 
+test('readPackageJson: a leading UTF-8 BOM is ignored', () => {
+  const dir = createTempDir();
+  try {
+    fs.writeFileSync(path.join(dir, 'package.json'), '\uFEFF' + JSON.stringify({ name: 'bom' }), 'utf8');
+    assert.equal(fs.readFileSync(path.join(dir, 'package.json'))[0], 0xef, 'fixture really starts with a BOM');
+    assert.deepEqual(readPackageJson(dir), { name: 'bom' });
+  } finally {
+    removeDir(dir);
+  }
+});
+
+test('readPackageJson: BOM followed by invalid JSON still returns null', () => {
+  const dir = createTempDir();
+  try {
+    fs.writeFileSync(path.join(dir, 'package.json'), '\uFEFF{ "name": "x", ', 'utf8');
+    assert.equal(readPackageJson(dir), null);
+  } finally {
+    removeDir(dir);
+  }
+});
+
+test('readPackageJson: a BOM that is not leading is not stripped', () => {
+  const dir = createTempDir();
+  try {
+    fs.writeFileSync(path.join(dir, 'package.json'), '{ "name": "x",\uFEFF "v": 1 }', 'utf8');
+    assert.equal(readPackageJson(dir), null);
+  } finally {
+    removeDir(dir);
+  }
+});
+
 test('readGitLog: returns trimmed output for a repo with a commit', () => {
   const dir = createTempDir();
   try {

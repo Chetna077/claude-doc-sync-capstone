@@ -22,23 +22,6 @@ function fail(message) {
   process.exit(1);
 }
 
-function samePath(a, b) {
-  const normalize = (value) => {
-    const normalized = path.normalize(value);
-    return process.platform === 'win32' ? normalized.toLowerCase() : normalized;
-  };
-
-  const canonical = (value) => {
-    try {
-      return fs.realpathSync.native(value);
-    } catch {
-      return path.resolve(value);
-    }
-  };
-
-  return normalize(canonical(a)) === normalize(canonical(b));
-}
-
 function main() {
   const args = parseArgs(process.argv.slice(2));
 
@@ -62,11 +45,7 @@ function main() {
   const defaultOutName = `${path.basename(templatePath, path.extname(templatePath))}.filled.md`;
   const outPath = path.resolve(args.out || path.join(process.cwd(), defaultOutName));
 
-  if (samePath(outPath, templatePath)) {
-    fail('--out must not be the same path as --template (the template is never modified)');
-    return;
-  }
-
+  // run() rejects --out equal to --template; its error flows to fail() below.
   try {
     const { total, found } = run({ templatePath, repoPath, outPath });
     process.stdout.write(`${found} / ${total} placeholders found.\n`);

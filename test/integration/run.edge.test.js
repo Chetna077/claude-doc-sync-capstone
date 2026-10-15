@@ -270,6 +270,106 @@ test('run(): a missing template throws', () => {
   }
 });
 
+test('run(): outPath equal to templatePath throws and leaves the template untouched', () => {
+  const dir = setup({
+    'package.json': JSON.stringify({ name: 'guard' }),
+    'template.md': '{{ProjectName}}\n',
+  });
+  try {
+    const templatePath = path.join(dir, 'template.md');
+    const before = fs.readFileSync(templatePath);
+    assert.throws(
+      () => run({ templatePath, repoPath: dir, outPath: templatePath }),
+      /--out must not be the same path as --template/
+    );
+    assert.deepEqual(fs.readFileSync(templatePath), before);
+  } finally {
+    removeDir(dir);
+  }
+});
+
+test('run(): a different spelling of the template path is also rejected', () => {
+  const dir = setup({
+    'package.json': JSON.stringify({ name: 'guard' }),
+    'template.md': '{{ProjectName}}\n',
+  });
+  try {
+    const templatePath = path.join(dir, 'template.md');
+    const before = fs.readFileSync(templatePath);
+    assert.throws(
+      () => run({ templatePath, repoPath: dir, outPath: path.join(dir, '.', 'template.md') }),
+      /--out must not be the same path as --template/
+    );
+    assert.deepEqual(fs.readFileSync(templatePath), before);
+  } finally {
+    removeDir(dir);
+  }
+});
+
+test('run(): the rejected run creates or changes no other file', () => {
+  const dir = setup({
+    'package.json': JSON.stringify({ name: 'guard' }),
+    'template.md': '{{ProjectName}}\n',
+  });
+  try {
+    const templatePath = path.join(dir, 'template.md');
+    const listing = () =>
+      fs.readdirSync(dir).sort().map((f) => `${f}:${fs.readFileSync(path.join(dir, f), 'utf8')}`);
+    const before = listing();
+    assert.throws(() => run({ templatePath, repoPath: dir, outPath: templatePath }));
+    assert.deepEqual(listing(), before);
+  } finally {
+    removeDir(dir);
+  }
+});
+
+test('run(): a BOM-prefixed package.json still resolves its fields', () => {
+  const dir = setup({
+    'package.json': '\uFEFF' + JSON.stringify({ name: 'bom-project' }),
+    'template.md': '{{ProjectName}}\n',
+  });
+  try {
+    const outPath = path.join(dir, 'out.md');
+    const result = run({ templatePath: path.join(dir, 'template.md'), repoPath: dir, outPath });
+    assert.equal(result.found, 1);
+    assert.equal(fs.readFileSync(outPath, 'utf8'), 'bom-project\n');
+  } finally {
+    removeDir(dir);
+  }
+});
+
+test('run(): an unresolved repeated placeholder counts once as 0 / 1 and renders Not Found each time', () => {
+  const dir = setup({
+    'package.json': JSON.stringify({ name: 'x' }),
+    'template.md': '{{Unknown}} {{Unknown}}\n{{Unknown}}\n',
+  });
+  try {
+    const outPath = path.join(dir, 'out.md');
+    const result = run({ templatePath: path.join(dir, 'template.md'), repoPath: dir, outPath });
+    assert.equal(result.total, 1);
+    assert.equal(result.found, 0);
+    assert.equal(fs.readFileSync(outPath, 'utf8'), 'Not Found Not Found\nNot Found\n');
+  } finally {
+    removeDir(dir);
+  }
+});
+
+test('run(): a spaced token is left literal and not counted', () => {
+  const dir = setup({
+    'package.json': JSON.stringify({ name: 'spaced' }),
+    'template.md': '{{ ProjectName }} / {{ProjectName}}\n',
+  });
+  try {
+    const outPath = path.join(dir, 'out.md');
+    const result = run({ templatePath: path.join(dir, 'template.md'), repoPath: dir, outPath });
+    assert.equal(result.total, 1);
+    assert.equal(result.found, 1);
+    assert.equal(fs.readFileSync(outPath, 'utf8'), '{{ ProjectName }} / spaced\n');
+  } finally {
+    removeDir(dir);
+  }
+});
+
 test('run(): repoPath selects which repo is inspected, not the template location', () => {
   const repoDir = setup({ 'package.json': JSON.stringify({ name: 'the-repo' }) });
   const templateDir = setup({
