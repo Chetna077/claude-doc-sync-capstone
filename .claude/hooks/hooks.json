@@ -1,23 +1,47 @@
 {
   "hooks": {
-    "PreCommit": [
+    "PreToolUse": [
       {
-        "matcher": "*",
+        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/scripts/pre-commit-secret-guard.sh"
+            "command": "bash .claude/hooks/scripts/pretool-commit-guard.sh"
           }
         ]
       }
     ],
-    "PostImplementation": [
+    "Stop": [
       {
-        "matcher": "*",
         "hooks": [
           {
             "type": "command",
             "command": "bash .claude/hooks/scripts/post-impl-doc-check.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/check-skills-applied.sh generatedDocs"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/post-impl-doc-check.sh"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/validate-skills.sh .claude"
           }
         ]
       }

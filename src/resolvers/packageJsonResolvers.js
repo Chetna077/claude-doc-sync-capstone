@@ -3,7 +3,9 @@
 /**
  * Formats a dependencies object as "name@version, name@version, ...",
  * preserving package.json key order. Returns null for a missing or empty
- * object.
+ * object, and for the whole field when any version is not a string (the
+ * value would not be a verifiable package.json version). An empty-string
+ * version is still a string and renders as "name@".
  * @param {object|undefined} deps
  * @returns {string|null}
  */
@@ -11,6 +13,7 @@ function formatDependencies(deps) {
   if (!deps || typeof deps !== 'object') return null;
   const keys = Object.keys(deps);
   if (keys.length === 0) return null;
+  if (keys.some((name) => typeof deps[name] !== 'string')) return null;
   return keys.map((name) => `${name}@${deps[name]}`).join(', ');
 }
 

@@ -1,0 +1,21 @@
+# Single source of truth for app facts. Agents read this; they never scan source to guess.
+app:
+  name: claude-doc-sync
+  description: CLI that fills {{Placeholder}} tokens from package.json and git metadata; unverifiable values become "Not Found".
+  language: JavaScript (Node.js >= 20)
+  runtime_dependencies: none
+commands:
+  install: "npm install"
+  test: "npm test"
+  e2e: "npm run test:e2e"
+  run: "node bin/claude-doc-sync.js --template <template.md> --repo <repo-path> --out <output.md>"
+github:
+  repo: https://github.com/Chetna077/claude-doc-sync-capstone
+  main_branch: master
+  feature_branch: feature/implementation
+jira:
+  site: https://chetnadeshwal24.atlassian.net
+  project_key: SCRUM
+confluence:
+  site: https://chetnadeshwal24.atlassian.net/wiki
+docs_dir: generatedDocs

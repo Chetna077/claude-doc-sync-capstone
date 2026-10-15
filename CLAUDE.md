@@ -42,3 +42,9 @@ See `.claude/instructions/coding-conventions.md` and
 `.claude/instructions/security-stance.md` for the full rules. In short:
 plain Node.js, zero dependencies, deterministic resolvers only, never modify
 the input template.
+
+## Skills, hooks and MCP
+- Skills in `.claude/skills/`: `placeholder-verifier`, `git-metadata-reader`, `jira-story-readiness`, `code-review-checklist`, `pr-description-writer`. Each step agent preloads its skills via frontmatter and must end its document with `## Skills applied`.
+- Hooks in `.claude/settings.json`: PreToolUse blocks secret commits; PostToolUse and Stop warn on doc drift; Stop blocks a document missing `## Skills applied`; SessionStart validates skills.
+- MCP in `.mcp.json`: Atlassian and GitHub (needs `GITHUB_TOKEN`).
+- Start the pipeline with `/run-pipeline SCRUM-n`.
