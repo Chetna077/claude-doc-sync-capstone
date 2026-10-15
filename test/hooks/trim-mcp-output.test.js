@@ -23,3 +23,15 @@ test('ignores other tools and non-JSON text, never fails', () => {
   assert.strictEqual(run({ tool_name: 'mcp__atlassian__x', tool_response: 'plain text' }).stdout, '');
   assert.strictEqual(spawnSync('node', [SCRIPT], { input: 'not json', encoding: 'utf8' }).status, 0);
 });
+
+test('replaces images and base64 data with short notes', () => {
+  const blob = 'A'.repeat(5000);
+  const r = run({ tool_name: 'mcp__atlassian__getJiraIssue', tool_response: [
+    { type: 'image', data: blob, mimeType: 'image/png' },
+    { type: 'text', text: JSON.stringify({ key: 'SCRUM-1', attachment: [{ content: blob }], img: 'data:image/png;base64,' + blob }) } ] });
+  const out = JSON.parse(r.stdout).hookSpecificOutput.updatedMCPToolOutput;
+  assert.deepStrictEqual(out[0], { type: 'text', text: '[image omitted]' });
+  const text = out[1].text;
+  assert.ok(text.includes('SCRUM-1'));
+  assert.ok(text.length < 400, 'base64 and data URIs must be gone');
+});

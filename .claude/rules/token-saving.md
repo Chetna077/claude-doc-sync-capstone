@@ -16,3 +16,7 @@ Every agent follows this when it reads from or writes to Jira, Confluence, GitHu
 - `atlassian-write-guard.js` (PreToolUse, Atlassian writes): blocks payloads over 8,000 characters.
 - `trim-mcp-output.js` (PostToolUse, Atlassian): strips avatar, self-link and icon noise from responses.
 Set `TOKEN_SAVER=off` to disable the guards.
+
+## Images and attachments
+- Never fetch or attach images, screenshots, PDFs or base64 data through Jira, Confluence or GitHub tools. Link to them or describe them in one line.
+- The trimmer replaces any image or base64 block in a response with a short note, and the read guard blocks image and PDF files.

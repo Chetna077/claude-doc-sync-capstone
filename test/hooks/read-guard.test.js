@@ -12,6 +12,7 @@ test('blocks vendored folders, lockfiles and binaries', () => {
   assert.match(check(read('C:\\proj\\node_modules\\x\\index.js')), /vendored/);
   assert.match(check(read('/a/package-lock.json')), /lockfile/);
   assert.match(check(read('/a/spec.docx')), /binary/);
+  assert.match(check(read('/a/screenshot.png')), /image/);
 });
 
 test('blocks large reads without a limit, allows them with one', () => {
