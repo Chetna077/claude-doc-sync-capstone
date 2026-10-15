@@ -6,7 +6,7 @@ const path = require('node:path');
 
 const SCRIPT = path.join(__dirname, '..', '..', '.claude', 'hooks', 'scripts', 'trim-mcp-output.js');
 const jira = { key: 'SCRUM-1', self: 'https://x/rest/api/3/issue/1', fields: { summary: 'Doc sync', status: { name: 'To Do', self: 'https://x/s', iconUrl: 'https://x/i.png' }, reporter: { displayName: 'Chetna', avatarUrls: { '48x48': 'https://x/a.png' } } } };
-const run = (input) => spawnSync('node', [SCRIPT], { input: JSON.stringify(input), encoding: 'utf8' });
+const run = (input) => spawnSync('node', [SCRIPT], { input: JSON.stringify(input), encoding: 'utf8', env: { ...process.env, TOKEN_SAVER_LOG: 'off' } });
 
 test('strips avatar, self and icon noise from Atlassian MCP output', () => {
   const r = run({ tool_name: 'mcp__atlassian__getJiraIssue', tool_response: [{ type: 'text', text: JSON.stringify(jira) }] });

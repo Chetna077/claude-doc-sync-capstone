@@ -51,6 +51,7 @@ function trimResponse(response) {
 // One line per Atlassian call: tool, characters before and after trimming, estimated tokens saved.
 // The log makes the hook's work visible even when a response has nothing to trim.
 function logUsage(tool, before, after) {
+  if (process.env.TOKEN_SAVER_LOG === 'off') return;
   try {
     const line = `${new Date().toISOString()} ${tool} chars ${before} -> ${after} (saved ~${Math.round((before - after) / 4)} tokens, estimate)\n`;
     fs.appendFileSync(path.join(__dirname, '..', 'token-usage.log'), line);
