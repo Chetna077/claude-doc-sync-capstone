@@ -5,3 +5,4 @@ test-results/
 dist/
 .deploy/
 output.md
+.claude/hooks/token-usage.log
