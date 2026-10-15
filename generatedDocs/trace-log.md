@@ -45,6 +45,6 @@ The AI agents draft each artifact. A human reviews and decides at every gate. No
 | Implementation plan | [x] Chetna Deshwal | 15 Oct 2026 |
 | Code and tests | [x] Chetna Deshwal | 15 Oct 2026 |
 | Code review and verification | [x] Chetna Deshwal | 15 Oct 2026 |
-| Pull request | [ ] Chetna Deshwal | |
+| Pull request | [x] Chetna Deshwal | 15 Oct 2026 |
 
 Note: stages above were approved by Chetna Deshwal in the Claude Code terminal during the 15 Oct 2026 `/run-pipeline SCRUM-1` run (master-sdlc with step1 to step8 agents; Atlassian MCP read of SCRUM-1 with minimal fields; skills jira-story-readiness, placeholder-verifier, code-review-checklist). The commit and push of 5e18b52 were approved by her. The Pull request row stays unticked until she confirms the PR #2 description.
