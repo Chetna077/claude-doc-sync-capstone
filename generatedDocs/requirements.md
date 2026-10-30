@@ -1,11 +1,11 @@
-# Requirements - claude-doc-sync (SCRUM-1)
+# Requirements - claude-doc-sync (SCRUM-2)
 
 Status: APPROVED (Step 1) - the human resolved all 5 open questions (section 10). Source of truth: the human's answers to the clarifying questions (the agent did not read Jira; the human supplied the story). Placeholder table verified against `src/resolvers/` and `src/sources/`.
 
 ## 1. Story
 
-- Key: SCRUM-1 (existing Jira issue, reused; no duplicate created). Link: https://chetnadeshwal24.atlassian.net/browse/SCRUM-1.
-- How the story was supplied: the human gave the story and the Jira link to the pipeline in chat; the Step 1 agent did not fetch it through the Atlassian MCP. The clarifying questions and the human's answers are recorded in `clarifying-qa.md`. The SCRUM-1 issue was updated afterwards (title, description and acceptance criteria) so that Jira matches this document.
+- Key: SCRUM-2 (existing Jira issue, reused; no duplicate created). Link: https://chetnadeshwal24.atlassian.net/browse/SCRUM-2.
+- How the story was supplied: the human gave the story and the Jira link to the pipeline in chat; the Step 1 agent did not fetch it through the Atlassian MCP. The clarifying questions and the human's answers are recorded in `clarifying-qa.md`. The SCRUM-2 issue was updated afterwards (title, description and acceptance criteria) so that Jira matches this document.
 - Summary: Build the `claude-doc-sync` CLI. It reads a Markdown template with `{{Placeholder}}` tokens, verifies each value against real sources, and writes a new filled file.
 - Change type: the original build of the tool itself, not a change to other work.
 - Business value: developers and tech leads get project documentation that is never stale or wrong, because every value is traceable to a real source.
@@ -89,18 +89,18 @@ All 10 names, sources and rules match the previous draft (git HEAD) and the code
 - A1: A leading UTF-8 BOM in `package.json` is ignored when parsing (otherwise all 8 package placeholders would falsely render `Not Found`).
 - A2: A `dependencies`/`devDependencies` entry whose version is not a string makes that placeholder `Not Found` (no `[object Object]` output).
 - A3: Known behaviour, documented in the README: if `--repo` is a subdirectory of a larger git repository, git placeholders reflect the enclosing repository's last commit.
-- A4 (Known Limitation, Step 6 R7, no code change): `dependencies` or `devDependencies` given as an array (for example `["a"]`) renders `0@a` instead of `Not Found`. Pre-existing, outside SCRUM-1 scope, documented in the README.
+- A4 (Known Limitation, Step 6 R7, no code change): `dependencies` or `devDependencies` given as an array (for example `["a"]`) renders `0@a` instead of `Not Found`. Pre-existing, outside SCRUM-2 scope, documented in the README.
 
 ## 10. Open questions
 
 All resolved by the human at the Step 1 approval:
 
-1. [resolved] Jira link: https://chetnadeshwal24.atlassian.net/browse/SCRUM-1 (added to section 1).
+1. [resolved] Jira link: https://chetnadeshwal24.atlassian.net/browse/SCRUM-2 (added to section 1).
 2. [resolved] The summary line keeps the trailing period: `N / M placeholders found.`
 3. [resolved] Unrecognised `{{Token}}` names count toward M and render `Not Found` (FR-3, FR-5).
-4. [resolved] CI (GitHub Actions running `npm test`) IS in scope for SCRUM-1 (section 3, NFR-5, AC-6).
+4. [resolved] CI (GitHub Actions running `npm test`) IS in scope for SCRUM-2 (section 3, NFR-5, AC-6).
 5. [resolved] Refusing `--out` equal to `--template` with a non-zero exit is correct (FR-6, FR-7).
 
 ## Skills applied
-- jira-story-readiness: checked new vs existing (existing SCRUM-1, reused), summary, description, business value, scenarios, expected results, affected areas, acceptance criteria, dependencies and out-of-scope items against the human's answers. Result: READY; the 5 open questions were resolved by the human and Step 1 is approved.
+- jira-story-readiness: checked new vs existing (existing SCRUM-2, reused), summary, description, business value, scenarios, expected results, affected areas, acceptance criteria, dependencies and out-of-scope items against the human's answers. Result: READY; the 5 open questions were resolved by the human and Step 1 is approved.
 - placeholder-verifier: checked all 10 placeholder names, sources and rules against `src/resolvers/` and `src/sources/`; all traceable to `package.json` or `git log`, anything else renders `Not Found`. Result: no discrepancies.

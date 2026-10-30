@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased] - SCRUM-1
+## [Unreleased] - SCRUM-2
 ### Fixed
 - --out equal to --template is rejected inside run() by real path (symlinks and different spellings); template is never modified.
 - A leading UTF-8 BOM in package.json is ignored.

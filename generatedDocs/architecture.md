@@ -1,4 +1,4 @@
-# Architecture - claude-doc-sync (SCRUM-1)
+# Architecture - claude-doc-sync (SCRUM-2)
 
 Status: APPROVED (Step 2) - the human resolved all 7 open questions (section 11); planned changes are listed in section 12. Input: `generatedDocs/requirements.md` (Step 1, approved). Grounded in the code in `src/`, `bin/` and `.github/workflows/ci.yml` as of branch `feature/implementation`. Jira/Confluence were not read or written. Anything not traceable to `package.json`, `git log`, or the code is marked `Not Found` or listed under Open questions.
 
@@ -127,7 +127,7 @@ Defaults (FR-8): `--repo` = `process.cwd()`; `--out` = `<template-basename-witho
 `.github/workflows/ci.yml`, workflow `CI`:
 - Triggers: `push` to `main`, and every `pull_request`. Permissions `contents: read`. Concurrency group `ci-${{ github.ref }}` with cancel-in-progress.
 - Job `test`: matrix `ubuntu-latest` and `windows-latest` x Node `20` and `22`, `fail-fast: false`, 10 min timeout. Steps: checkout, setup-node, `npm test`. No `npm install` is needed because the tool has no runtime dependencies (this also proves NFR-1 in CI).
-- Job `e2e` (ubuntu, Node 20): `npm ci`, install Chromium, `npm run test:e2e`, upload `test-results/` on failure, then `.claude/hooks/scripts/validate-skills.sh .claude`. The Playwright and skill-validation steps go beyond NFR-5 (which only requires `npm test`); they are existing behaviour, retained, not required by SCRUM-1.
+- Job `e2e` (ubuntu, Node 20): `npm ci`, install Chromium, `npm run test:e2e`, upload `test-results/` on failure, then `.claude/hooks/scripts/validate-skills.sh .claude`. The Playwright and skill-validation steps go beyond NFR-5 (which only requires `npm test`); they are existing behaviour, retained, not required by SCRUM-2.
 - Windows is in the matrix deliberately: `samePath` has Windows-specific case handling that only a Windows runner exercises.
 - Issue: the push trigger names `main`, but this repo's default branch is `master` (`git branch -a`). Pushes to `master` do not start CI; pull requests do. Decision (Q1): add `master` to the push trigger (planned change P1).
 
@@ -190,7 +190,7 @@ Decisions: Q1 add `master` to the CI trigger [resolved]; Q2 keep distinct-name c
 4. [Resolved in Step 5: the guard now lives in `run()`, not the CLI.] Overwrite protection lived only in the CLI. `run()` called directly (it is `package.json` `main`, so it is importable) with `outPath == templatePath` would overwrite the template. Move the `samePath` guard into `run()` so the invariant holds for both entry points? Recommended: yes (small Step 5 change); otherwise record it as a known limitation.
 5. Argument parsing is minimal: an option given without a value takes the next argument as its value (for example `--template --repo x` sets template to `--repo`) or `undefined`, and unknown flags are silently ignored. Not covered by FR-7/FR-8. Accept as-is, or add an "unknown/missing option value" usage error with exit 1?
 6. Hard links: `samePath` resolves symlinks but cannot detect a hard link to the template; writing to such a path would modify the template. Practically negligible; accept as a known limitation?
-7. `package.json` `build`, `deploy:local`, `release` scripts reference `scripts/`; no requirement mentions them. Confirm they are out of scope for SCRUM-1 (not reviewed here).
+7. `package.json` `build`, `deploy:local`, `release` scripts reference `scripts/`; no requirement mentions them. Confirm they are out of scope for SCRUM-2 (not reviewed here).
 
 ## 12. Planned changes (from Step 2 decisions; implemented in Step 5, no source changed yet)
 

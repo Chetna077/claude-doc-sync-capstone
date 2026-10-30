@@ -1,4 +1,4 @@
-# Implementation Plan - claude-doc-sync (SCRUM-1)
+# Implementation Plan - claude-doc-sync (SCRUM-2)
 
 Status: APPROVED (Step 4) by the user; open questions Q-A to Q-E resolved in section 6. Step 5 (implementation) in progress. Inputs: `generatedDocs/requirements.md` (Step 1, approved), `generatedDocs/architecture.md` (Step 2, approved), `generatedDocs/design-review.md` (Step 3, approved with decisions 8-10 recorded). Grounded in `src/`, `bin/`, `test/` and `.github/workflows/ci.yml` on branch `feature/implementation`. Jira/Confluence were not read or written. No source code was changed in this step. Anything not traceable to `package.json`, `git log` or the code is marked `Not Found`.
 
@@ -44,7 +44,7 @@ Single-person build, so tasks run strictly in the order below. "Blocked" means i
 - Optional integration check in `test/integration/run.edge.test.js`: a repo whose `package.json` starts with a BOM resolves `{{ProjectName}}` (not `Not Found`). One extra test.
 - Traces to: new scope A1 (requirements section 9a), F5, decision 8; protects AC-1/AC-2 for BOM files.
 - `npm test`: the new tests fail before the change and pass after; all 125 existing tests unchanged.
-- Risk: low. Does not weaken `Not Found` (invalid JSON still `null`). Note: this addition is beyond the original SCRUM-1 text; it is recorded in requirements section 9a.
+- Risk: low. Does not weaken `Not Found` (invalid JSON still `null`). Note: this addition is beyond the original SCRUM-2 text; it is recorded in requirements section 9a.
 
 ### T3 - Non-string dependency version (P6)
 - Files: `src/resolvers/packageJsonResolvers.js`, `formatDependencies`: if any value in `deps` is not a `typeof 'string'`, return `null` for the whole field. Decision for the human: should an empty-string version count as a string (rendered `name@`)? Plan default: keep current behaviour for strings including empty (only the type is checked), because the decision only mentions "not a string". See open question Q-A.
@@ -136,7 +136,7 @@ Single-person build, so tasks run strictly in the order below. "Blocked" means i
 | Changing the CLI/`run()` guard alters stderr text or exit code | Low | Message defined once; three existing CLI tests stay unchanged and must pass |
 | New `run()` guard test overwrites a real file if written carelessly | Low | Use only temp-dir files from `test/helpers/tempRepo.js` |
 | Symlink test fails on Windows without privilege | Medium | Skip on `EPERM`; the realpath behaviour is already exercised by the existing CLI spelling test |
-| Scope creep: P5 and P6 are not in the original SCRUM-1 requirements | Low | Recorded in requirements 9a and design-review decisions 8-9; both approved by the human |
+| Scope creep: P5 and P6 are not in the original SCRUM-2 requirements | Low | Recorded in requirements 9a and design-review decisions 8-9; both approved by the human |
 | CI workflow typo is invisible locally | Low | One-line change, diff review, observed on first push |
 | README claims drift from behaviour | Low | Each README line is tied to a test or decision (T7) |
 

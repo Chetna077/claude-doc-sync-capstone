@@ -1,4 +1,4 @@
-# Implementation - claude-doc-sync (SCRUM-1, Step 5)
+# Implementation - claude-doc-sync (SCRUM-2, Step 5)
 
 Status: DONE and APPROVED by the user (Step 5); Step 6 (code review) in progress. Implemented in the working tree on `feature/implementation`. Nothing committed, pushed, or written to Jira/Confluence. Input: approved `generatedDocs/impl-plan.md` (Q-A to Q-E resolved by the user and recorded there). Zero new runtime dependencies (`package.json` untouched; new module uses `fs` and `path` only).
 

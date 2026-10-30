@@ -11,7 +11,7 @@ Kick off the full lifecycle — Requirements → Architecture → Design Review 
 Make sure `.claude/config/app-profile.yml` is filled in. The pipeline reads every app fact from there and never scans source to guess. MCP servers in `.mcp.json` (Atlassian, GitHub) must be connected; set `GITHUB_TOKEN` in your environment.
 
 ## How to use
-- Pass a story id like `SCRUM-1`, or leave blank to browse the backlog.
+- Pass a story id like `SCRUM-2`, or leave blank to browse the backlog.
 - The story can also live in a Confluence page or a Word doc.
 
 ## What runs

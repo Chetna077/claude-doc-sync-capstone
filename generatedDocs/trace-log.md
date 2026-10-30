@@ -47,6 +47,8 @@ The AI agents draft each artifact. A human reviews and decides at every gate. No
 | Code review and verification | [x] Chetna Deshwal | 15 Oct 2026 |
 | Pull request | [x] Chetna Deshwal | 15 Oct 2026 |
 
-Note: stages above were approved by Chetna Deshwal in the Claude Code terminal during the 15 Oct 2026 `/run-pipeline SCRUM-1` run (master-sdlc with step1 to step8 agents; Atlassian MCP read of SCRUM-1 with minimal fields; skills jira-story-readiness, placeholder-verifier, code-review-checklist). The commit and push of 5e18b52 were approved by her. The Pull request row stays unticked until she confirms the PR #2 description.
+Note: stages above were approved by Chetna Deshwal in the Claude Code terminal during the 15 Oct 2026 `/run-pipeline SCRUM-2` run (master-sdlc with step1 to step8 agents; Atlassian MCP read of SCRUM-2 with minimal fields; skills jira-story-readiness, placeholder-verifier, code-review-checklist). The commit and push of 5e18b52 were approved by her. The Pull request row stays unticked until she confirms the PR #2 description.
 
-30 Oct 2026: the step1-requirements and step8-pr agents read SCRUM-1 (Atlassian MCP) and PR #2 (GitHub MCP) and prepared the proposed text; after Chetna Deshwal approved each write, the main session updated the SCRUM-1 description and status and added a comment with the PR link through the Atlassian MCP. The PR #2 body and title were left unchanged.
+30 Oct 2026: the step1-requirements and step8-pr agents read SCRUM-2 (Atlassian MCP) and PR #2 (GitHub MCP) and prepared the proposed text; after Chetna Deshwal approved each write, the main session updated the SCRUM-2 description and status and added a comment with the PR link through the Atlassian MCP. The PR #2 body and title were left unchanged.
+
+30 Oct 2026 correction: this project's Jira story is SCRUM-2. SCRUM-1 belongs to the Copilot project (automated-doc-sync). Until 30 Oct these documents wrongly said SCRUM-1. Older commit messages and the merged PR #1 still say SCRUM-1.

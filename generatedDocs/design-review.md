@@ -1,4 +1,4 @@
-# Design Review - claude-doc-sync (SCRUM-1)
+# Design Review - claude-doc-sync (SCRUM-2)
 
 Status: APPROVED (Step 3) - the human resolved open questions 8-10 (section 5); planned changes are now P1-P7. (Originally a draft for human approval.) Inputs: `generatedDocs/requirements.md` (Step 1, approved) and `generatedDocs/architecture.md` (Step 2, approved with the decisions below), checked against the code in `src/`, `bin/` and `.github/workflows/ci.yml` on branch `feature/implementation`. Jira/Confluence were not read or written. No source code was changed. Anything not traceable to `package.json`, `git log` or the code is marked `Not Found`.
 
@@ -38,7 +38,7 @@ Severity: High = wrong output or data loss; Medium = real gap a user can hit; Lo
 | F13 | Info | Resolver lookup is an explicit table with an `Object.hasOwn` guard, so `{{constructor}}` and `{{__proto__}}` cannot reach the prototype. An explicit table was kept over reflection for traceability. | `src/resolvers/index.js` line 31 | No action |
 | F14 | Info | Duplicate-placeholder correctness: `substitute` uses a replacer function, so `$&`-style sequences in values are inserted literally, and every occurrence gets the same value from one lookup per distinct name. | `src/templateEngine.js` lines 33-36 | No action |
 | F15 | Info | Missing-path handling: template missing/not a file, repo missing/not a directory, and output directory missing/output is a directory all exit 1 with an `Error:` line and write nothing (the last via the `try/catch`). | `bin/claude-doc-sync.js` lines 45-76 | No action |
-| F16 | Info | The CI `e2e` job (Playwright and `validate-skills.sh`) goes beyond NFR-5. It is existing behaviour and will make PR checks fail if the demo or skill wiring breaks. | `ci.yml` lines 33-53 | Retain; not required by SCRUM-1 |
+| F16 | Info | The CI `e2e` job (Playwright and `validate-skills.sh`) goes beyond NFR-5. It is existing behaviour and will make PR checks fail if the demo or skill wiring breaks. | `ci.yml` lines 33-53 | Retain; not required by SCRUM-2 |
 
 No High findings. Because a first pass with no High finding deserves suspicion, the architecture was re-checked against each requirement line (section 3); the findings F5-F7 came from that second pass.
 
@@ -70,7 +70,7 @@ No High findings. Because a first pass with no High finding deserves suspicion, 
 | P2 | FR-5 reworded (done in this step); no code change | `generatedDocs/requirements.md` | Confirm or add a test: a template with one token repeated three times reports `1 / 1` (or `0 / 1` when unresolved) |
 | P3 | README note: only exact `{{Name}}` tokens (letters, digits, underscore) are recognised; `{{ Name }}` is left unchanged and not counted. Also note M counts distinct names and the hard-link limitation (F9) | `README.md` | Confirm or add a test that `{{ ProjectName }}` stays literal and is not counted |
 | P4 | Extract `samePath` into a shared module (for example `src/samePath.js`); call it at the top of `run()` before any read or write and throw an `Error` with the existing message `--out must not be the same path as --template (the template is never modified)`; CLI drops its own pre-check or keeps it only if the message stays identical; CLI `try/catch` prints `Error: <message>` and exits 1 | `src/run.js`, `src/samePath.js` (new), `bin/claude-doc-sync.js` | New integration test: `run()` with equal paths throws and leaves the template byte-identical; existing three CLI tests must still pass unchanged |
-| P5 | Strip a leading UTF-8 BOM (`﻿`) from the raw text before `JSON.parse` in `readPackageJson` (F5). Added to scope by the human; not in the SCRUM-1 requirements as originally written | `src/sources/readPackageJson.js` | Unit test in `test/unit/sources.test.js`: a BOM-prefixed valid `package.json` parses; BOM plus invalid JSON still returns `null` |
+| P5 | Strip a leading UTF-8 BOM (`﻿`) from the raw text before `JSON.parse` in `readPackageJson` (F5). Added to scope by the human; not in the SCRUM-2 requirements as originally written | `src/sources/readPackageJson.js` | Unit test in `test/unit/sources.test.js`: a BOM-prefixed valid `package.json` parses; BOM plus invalid JSON still returns `null` |
 | P6 | In `formatDependencies`, if any dependency version is not a string, return `null` (whole field `Not Found`) instead of interpolating `[object Object]` (F6). Added to scope by the human | `src/resolvers/packageJsonResolvers.js` | Unit tests in `test/unit/packageJsonResolvers.edge.test.js`: `{a: {b: 1}}`, `{a: 1}`, `{a: null}` give `null`; string versions and ranges unchanged |
 | P7 | README note: when `--repo` is a subdirectory of a larger git repository, git reports the enclosing repository's last commit (F7) | `README.md` | None (documentation) |
 
@@ -82,7 +82,7 @@ No change: parseArgs (Q5), hard links (Q6, README line only), scripts `build`/`d
 9. [resolved: YES] Non-string dependency versions (F6): return `Not Found` for the whole field, or skip, when a version is not a string, instead of rendering `[object Object]`? Recommended: treat the field as unverifiable (`null`).
 10. [resolved: YES] Subdirectory of a larger git repo (F7): accept that git reports the enclosing repo's last commit and mention it in the README? Recommended: accept and document.
 
-Items 8 and 9 are additions to scope beyond the SCRUM-1 requirements as written; the human accepted them, so Step 4 covers P1-P7 (see `generatedDocs/impl-plan.md`).
+Items 8 and 9 are additions to scope beyond the SCRUM-2 requirements as written; the human accepted them, so Step 4 covers P1-P7 (see `generatedDocs/impl-plan.md`).
 
 ## Addendum (Step 6/7): known limitation carried forward
 

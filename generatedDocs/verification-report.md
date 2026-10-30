@@ -1,4 +1,4 @@
-# Verification Report - claude-doc-sync (SCRUM-1, Step 7)
+# Verification Report - claude-doc-sync (SCRUM-2, Step 7)
 
 Status: APPROVED by the user (Step 7), proceeding to Step 8 (pull request, prepare-only). User decisions: Playwright browsers not installed, e2e stays Not Found; AC-6 accepted as "verified by inspection" until the first CI run; overwrite of the old report confirmed. Nothing committed, pushed, or written to Jira/Confluence. Acceptance criteria are from `generatedDocs/requirements.md` section 7. Anything not traceable to `package.json`, `git log`, or output run here is `Not Found`.
 

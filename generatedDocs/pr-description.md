@@ -1,8 +1,8 @@
-# SCRUM-1: claude-doc-sync - harden the placeholder filler and its overwrite guard
+# SCRUM-2: claude-doc-sync - harden the placeholder filler and its overwrite guard
 
 Status: DRAFT for human approval. Nothing committed, pushed, opened as a PR, or written to Jira/Confluence.
 
-- Jira: https://chetnadeshwal24.atlassian.net/browse/SCRUM-1
+- Jira: https://chetnadeshwal24.atlassian.net/browse/SCRUM-2
 - Base branch: `master`
 - Head branch: `feature/implementation`
 - Repository: https://github.com/Chetna077/claude-doc-sync-capstone (from `git remote -v`)
@@ -31,9 +31,9 @@ Tests:
 CI and docs:
 - `.github/workflows/ci.yml`: `push` trigger now `[main, master]` (was `[main]`) so CI runs on this repo's `master`.
 - `README.md`: documents token rules, BOM handling, non-string versions, the enclosing-repo behaviour and the known limitations; fixes `generatedDocs/` links and the dependency statement (the only devDependency is `@playwright/test`).
-- `generatedDocs/`: `requirements.md`, `architecture.md`, `design-review.md`, `impl-plan.md`, `code-review.md`, `test-cases.md`, `verification-report.md` rewritten or updated for SCRUM-1; `implementation.md` (new); `pr-description.md` (new, this file).
+- `generatedDocs/`: `requirements.md`, `architecture.md`, `design-review.md`, `impl-plan.md`, `code-review.md`, `test-cases.md`, `verification-report.md` rewritten or updated for SCRUM-2; `implementation.md` (new); `pr-description.md` (new, this file).
 
-Scope note: besides SCRUM-1, this branch carries six earlier commits about token saving, which are part of the capstone token-saving requirement:
+Scope note: besides SCRUM-2, this branch carries six earlier commits about token saving, which are part of the capstone token-saving requirement:
 - `c4cd399` feat: token-saver hooks (read guard and Atlassian output trimmer)
 - `dafabbc` feat: token-saving rule, Atlassian write guard and agent wiring
 - `3d02015` docs: add orchestrator.md and pull request ownership rule
@@ -41,7 +41,7 @@ Scope note: besides SCRUM-1, this branch carries six earlier commits about token
 - `5e75cf3` feat: trimmer logs every Atlassian call to token-usage.log
 - `fb5fff3` fix: tests must not write to the real token-usage.log
 
-Their diff (15 files, under `.claude/`, `.gitignore`, `test/hooks/`) is separate from the SCRUM-1 code change. The PR against `master` shows all pipeline work, not only this change. The last commit, `docs: sign-off for SCRUM-1 pipeline run`, ticks the reviewer sign-offs in `generatedDocs/trace-log.md`.
+Their diff (15 files, under `.claude/`, `.gitignore`, `test/hooks/`) is separate from the SCRUM-2 code change. The PR against `master` shows all pipeline work, not only this change. The last commit, `docs: sign-off for SCRUM-2 pipeline run`, ticks the reviewer sign-offs in `generatedDocs/trace-log.md`.
 
 ## Test Evidence
 
@@ -94,7 +94,7 @@ Real output of `npm test` (`node --test`), run in Step 8 after the last doc edit
 ## Changelog entry (draft, not written to any file; no `CHANGELOG*` file exists in the repo)
 
 ```
-## [Unreleased] - SCRUM-1
+## [Unreleased] - SCRUM-2
 ### Fixed
 - --out equal to --template is rejected inside run() by real path (symlinks and different spellings); template is never modified.
 - A leading UTF-8 BOM in package.json is ignored.
@@ -108,14 +108,14 @@ Real output of `npm test` (`node --test`), run in Step 8 after the last doc edit
 
 ## Confluence summary (draft, not published; target page: Not Found)
 
-SCRUM-1 claude-doc-sync: built a Node.js CLI that fills {{Placeholder}} tokens from package.json and git log, and renders anything unverifiable as Not Found. Hardened the overwrite guard (real-path comparison inside run()), BOM handling, non-string dependency versions and repeated tokens. npm test: 142 tests, 141 pass, 0 fail, 1 skipped (symlink, EPERM on Windows). e2e not run; AC-6 (CI) verified by inspection until the first CI run. Known limitations: hard links, case-insensitive compare on Windows, subdirectory of a larger repo, dependencies as an array renders 0@a. PR: Not Found (not yet opened).
+SCRUM-2 claude-doc-sync: built a Node.js CLI that fills {{Placeholder}} tokens from package.json and git log, and renders anything unverifiable as Not Found. Hardened the overwrite guard (real-path comparison inside run()), BOM handling, non-string dependency versions and repeated tokens. npm test: 142 tests, 141 pass, 0 fail, 1 skipped (symlink, EPERM on Windows). e2e not run; AC-6 (CI) verified by inspection until the first CI run. Known limitations: hard links, case-insensitive compare on Windows, subdirectory of a larger repo, dependencies as an array renders 0@a. PR: Not Found (not yet opened).
 
 ## Proposed commit (not run)
 
 Message:
 
 ```
-fix: harden overwrite guard, BOM, non-string versions and repeated tokens (SCRUM-1)
+fix: harden overwrite guard, BOM, non-string versions and repeated tokens (SCRUM-2)
 
 Move the --out == --template check into run() using a real-path samePath,
 ignore a leading UTF-8 BOM in package.json, render a non-string dependency
