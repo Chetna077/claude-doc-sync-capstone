@@ -41,7 +41,7 @@ Scope note: besides SCRUM-2, this branch carries six earlier commits about token
 - `5e75cf3` feat: trimmer logs every Atlassian call to token-usage.log
 - `fb5fff3` fix: tests must not write to the real token-usage.log
 
-Their diff (15 files, under `.claude/`, `.gitignore`, `test/hooks/`) is separate from the SCRUM-2 code change. The PR against `master` shows all pipeline work, not only this change. The last commit, `docs: sign-off for SCRUM-2 pipeline run`, ticks the reviewer sign-offs in `generatedDocs/trace-log.md`.
+Their diff (15 files, under `.claude/`, `.gitignore`, `test/hooks/`) is separate from the SCRUM-2 code change. The PR against `master` shows all pipeline work, not only this change. A sign-off commit ticks the reviewer sign-offs in `generatedDocs/trace-log.md`.
 
 ## Test Evidence
 
