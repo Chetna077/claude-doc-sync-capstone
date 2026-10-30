@@ -33,7 +33,7 @@ CI and docs:
 - `README.md`: documents token rules, BOM handling, non-string versions, the enclosing-repo behaviour and the known limitations; fixes `generatedDocs/` links and the dependency statement (the only devDependency is `@playwright/test`).
 - `generatedDocs/`: `requirements.md`, `architecture.md`, `design-review.md`, `impl-plan.md`, `code-review.md`, `test-cases.md`, `verification-report.md` rewritten or updated for SCRUM-1; `implementation.md` (new); `pr-description.md` (new, this file).
 
-Scope note, the branch carries earlier, unrelated commits. `git log origin/feature/implementation..HEAD` lists six commits not yet on the remote head branch, all about token saving, not about SCRUM-1:
+Scope note: besides SCRUM-1, this branch carries six earlier commits about token saving, which are part of the capstone token-saving requirement:
 - `c4cd399` feat: token-saver hooks (read guard and Atlassian output trimmer)
 - `dafabbc` feat: token-saving rule, Atlassian write guard and agent wiring
 - `3d02015` docs: add orchestrator.md and pull request ownership rule
@@ -41,7 +41,7 @@ Scope note, the branch carries earlier, unrelated commits. `git log origin/featu
 - `5e75cf3` feat: trimmer logs every Atlassian call to token-usage.log
 - `fb5fff3` fix: tests must not write to the real token-usage.log
 
-Their diff (15 files, 318 insertions, under `.claude/`, `.gitignore`, `test/hooks/`) is not part of SCRUM-1. Also, `origin/master` is at `009d0d4`, so a PR against `master` shows 26 commits (`git log origin/master..HEAD`), including all earlier pipeline work, not only this change.
+Their diff (15 files, under `.claude/`, `.gitignore`, `test/hooks/`) is separate from the SCRUM-1 code change. The PR against `master` shows all pipeline work, not only this change. The last commit, `docs: sign-off for SCRUM-1 pipeline run`, ticks the reviewer sign-offs in `generatedDocs/trace-log.md`.
 
 ## Test Evidence
 
@@ -59,9 +59,9 @@ Real output of `npm test` (`node --test`), run in Step 8 after the last doc edit
 ℹ duration_ms 3652.6528
 ```
 
-- Skipped: `samePath: a symlink to the same file is true`, because this Windows machine cannot create symlinks (EPERM). Symlink handling is NOT exercised locally. Ubuntu CI result: Not Found until CI runs.
-- e2e: NOT RUN. `npm run test:e2e` was attempted in Step 7 and failed with `browserType.launch: Executable doesn't exist ... npx playwright install`. By the user's decision the Playwright browsers are not installed, so the demo check is Not Found here (the CI `e2e` job would run it). `demo.html` is untouched by this diff.
-- AC-6 (CI runs `npm test` on PRs and pushes): verified by inspection only, until the first CI run. `ci.yml` triggers on `push` to `[main, master]` and on `pull_request`, and runs `npm test` on ubuntu and windows, Node 20 and 22. No CI run has been observed.
+- Skipped: `samePath: a symlink to the same file is true`, because this Windows machine cannot create symlinks (EPERM). Symlink handling is NOT exercised on Windows. On Ubuntu CI the symlink test is expected to run.
+- e2e: not run locally. `npm run test:e2e` failed on this machine with `browserType.launch: Executable doesn't exist ... npx playwright install`, because the Playwright browsers are not installed here. The CI `e2e` job ran and passed on this PR. `demo.html` is untouched by this diff.
+- AC-6 (CI runs `npm test` on PRs and pushes): CI ran on this PR at commit `5e18b52` and all 5 checks passed (ubuntu and windows, Node 20 and 22, and the Playwright e2e job). `ci.yml` triggers on `push` to `[main, master]` and on `pull_request`.
 - AC-1 to AC-5: PASS on this machine, per `generatedDocs/verification-report.md` (8 / 10 placeholders found against this repo, 0 / 10 in a non-git dir, template SHA-256 identical before and after).
 - Full report: `generatedDocs/verification-report.md`; traceability: `generatedDocs/test-cases.md`.
 
@@ -69,21 +69,20 @@ Real output of `npm test` (`node --test`), run in Step 8 after the last doc edit
 
 - Hard links to the template are not detected by the overwrite guard (accepted, README).
 - On Windows the path comparison is case-insensitive (accepted); on other platforms it is case-sensitive.
-- Symlink guard test is skipped on Windows; its result on Ubuntu CI is Not Found.
+- Symlink guard test is skipped on Windows (EPERM); it runs on Ubuntu CI.
 - `--repo` that is a subdirectory of a larger git repository reports the last commit of the enclosing repository (README).
 - `dependencies: ["a"]` (an array instead of an object) renders `0@a` and is not rejected (R7, README, `requirements.md` A4); only malformed `package.json` files are affected.
-- Playwright demo test not run (browsers not installed, by decision); AC-6 verified by inspection only until the first CI run.
+- Playwright demo test not run on the local Windows machine (browsers not installed); it runs in CI.
 - Values not traceable to `package.json` or `git log` render as `Not Found` by design (for this repo: `Author`, `Dependencies`).
 
 ## Reviewer Checklist
 
 - [ ] Run `npm test` yourself; expect 142 tests, 141 pass, 0 fail, 1 skipped (symlink, EPERM on Windows)
 - [ ] On Linux or macOS, confirm the symlink test `samePath: a symlink to the same file is true` runs and passes
-- [ ] Run `npm run test:e2e` after `npx playwright install`, or confirm the CI `e2e` job passes (not run locally)
-- [ ] Confirm the first CI run on this PR is green on ubuntu and windows (AC-6 is verified by inspection only)
+- [ ] Confirm the CI run on this PR is green on ubuntu and windows and the `e2e` job passes (5 of 5 checks)
 - [ ] Run the CLI with `--out` equal to `--template`, including a symlink or different spelling; confirm exit 1 and the template unchanged
 - [ ] Confirm every filled value in a run against this repo traces to `package.json` or `git log`, and absent fields show exactly `Not Found`
-- [ ] Decide whether the six unrelated token-saving commits belong in this PR or should be split out
+- [ ] Confirm the six token-saving commits belong in this PR (decided: keep)
 - [ ] No secrets in the diff
 - [ ] `generatedDocs/` matches the code
 - [ ] Known Limitations above are acceptable
