@@ -1,3 +1,11 @@
+---
+name: master-sdlc
+description: Master SDLC Agent — claude-doc-sync. Follows the listed skills and records them under 'Skills applied'.
+skills:
+  - jira-story-readiness
+  - code-review-checklist
+  - pr-description-writer
+---
 # Master SDLC Agent — claude-doc-sync
 
 Coordinates the 8-step Agentic SDLC cycle for this project. Delegates to the
@@ -26,3 +34,14 @@ guess. Zero runtime dependencies. Full rules are in
 Never accept a value that cannot be traced back to a real file or command
 output. If a step agent is unsure whether something is verifiable, the answer
 is `Not Found`, not an assumption.
+
+## Skills
+- Use the `jira-story-readiness` skill at step 1.
+- Use the `code-review-checklist` skill at step 6.
+- Use the `pr-description-writer` skill at step 8.
+
+## Skill evidence rule
+Before finishing, add a `## Skills applied` section to the artifact you produced. For each skill you used, write one line: `skill-name: what it checked and the result`. If a listed skill was not applicable, write `skill-name: not applicable because ...`. An artifact without this section is incomplete.
+
+## Token saving rule
+Follow `.claude/rules/token-saving.md` in every stage: request only the Jira fields you need, send only changed fields when writing to Jira or Confluence, and never read lockfiles or large files whole. Hooks enforce the size limits.

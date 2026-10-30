@@ -28,8 +28,8 @@ const registry = {
  * @returns {string|null}
  */
 function resolve(name, ctx) {
-  const resolver = registry[name];
-  return resolver ? resolver(ctx) : null;
+  if (!Object.hasOwn(registry, name)) return null;
+  return registry[name](ctx);
 }
 
 module.exports = { registry, resolve };
