@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/scripts/pretool-commit-guard.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/scripts/pretool-commit-guard.sh\""
           }
         ]
       }
@@ -16,11 +16,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/scripts/post-impl-doc-check.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/scripts/post-impl-doc-check.sh\""
           },
           {
             "type": "command",
-            "command": "bash .claude/hooks/scripts/check-skills-applied.sh generatedDocs"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/scripts/check-skills-applied.sh\" generatedDocs"
           }
         ]
       }
@@ -31,7 +31,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/scripts/post-impl-doc-check.sh"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/scripts/post-impl-doc-check.sh\""
           }
         ]
       }
@@ -41,7 +41,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/scripts/validate-skills.sh .claude"
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/scripts/validate-skills.sh\" .claude"
           }
         ]
       }
