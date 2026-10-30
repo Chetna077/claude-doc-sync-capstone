@@ -1,10 +1,11 @@
 # Requirements - claude-doc-sync (SCRUM-1)
 
-Status: APPROVED (Step 1) - the human resolved all 5 open questions (section 10). Source of truth: the human's answers to the clarifying questions (Jira was not read or written). Placeholder table verified against `src/resolvers/` and `src/sources/`.
+Status: APPROVED (Step 1) - the human resolved all 5 open questions (section 10). Source of truth: the human's answers to the clarifying questions (the agent did not read Jira; the human supplied the story). Placeholder table verified against `src/resolvers/` and `src/sources/`.
 
 ## 1. Story
 
-- Key: SCRUM-1 (existing story, reused; no duplicate created). Link: https://chetnadeshwal24.atlassian.net/browse/SCRUM-1 (supplied by the human; Jira was not fetched).
+- Key: SCRUM-1 (existing Jira issue, reused; no duplicate created). Link: https://chetnadeshwal24.atlassian.net/browse/SCRUM-1.
+- How the story was supplied: the human gave the story and the Jira link to the pipeline in chat; the Step 1 agent did not fetch it through the Atlassian MCP. The clarifying questions and the human's answers are recorded in `clarifying-qa.md`. The SCRUM-1 issue was updated afterwards (title, description and acceptance criteria) so that Jira matches this document.
 - Summary: Build the `claude-doc-sync` CLI. It reads a Markdown template with `{{Placeholder}}` tokens, verifies each value against real sources, and writes a new filled file.
 - Change type: the original build of the tool itself, not a change to other work.
 - Business value: developers and tech leads get project documentation that is never stale or wrong, because every value is traceable to a real source.
