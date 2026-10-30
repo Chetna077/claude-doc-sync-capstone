@@ -26,6 +26,23 @@ Status: APPROVED (Step 2) - the human resolved all 7 open questions (section 11)
 
 Not components of the tool (listed so scope is clear): `demo.html`, `templates/project-doc.template.md`, `.claude/` agents/skills/hooks, `generatedDocs/`. `package.json` also defines `build`, `deploy:local` and `release` scripts pointing at `scripts/`; these are not in the requirements and were not reviewed here (`Not Found` in requirements, so out of scope for this document).
 
+### Component diagram
+
+```mermaid
+flowchart LR
+    CLI["bin/claude-doc-sync.js<br/>CLI entry point"] --> RUN["src/run.js<br/>Orchestrator"]
+    RUN --> TE["src/templateEngine.js<br/>extract and substitute"]
+    RUN --> REG["src/resolvers/index.js<br/>Resolver registry"]
+    RUN --> SPKG["src/sources/readPackageJson.js"]
+    REG --> RPKG["packageJsonResolvers.js"]
+    REG --> RGIT["gitResolvers.js"]
+    RGIT --> SGIT["src/sources/readGitLog.js"]
+    SPKG --> PKG[("package.json")]
+    SGIT --> GIT[("git log")]
+    CLI -. "stdout / exit code" .-> USER(["User / CI"])
+    CI["ci.yml (GitHub Actions)"] -. "runs npm test" .-> CLI
+```
+
 ## 3. Data flow
 
 ```
