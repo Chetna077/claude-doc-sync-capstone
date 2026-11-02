@@ -51,3 +51,5 @@ jobs:
           if-no-files-found: ignore
       - name: Validate agent skills are wired
         run: bash .claude/hooks/scripts/validate-skills.sh .claude
+      - name: Verify documented test count is current
+        run: node scripts/check-doc-counts.js generatedDocs/verification-report.md
