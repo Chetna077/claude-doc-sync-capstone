@@ -2,6 +2,8 @@
 
 Status: APPROVED by the user (Step 7), proceeding to Step 8 (pull request, prepare-only). User decisions: Playwright browsers not installed, e2e stays Not Found; AC-6 accepted as "verified by inspection" until the first CI run; overwrite of the old report confirmed. Nothing committed, pushed, or written to Jira/Confluence. Acceptance criteria are from `generatedDocs/requirements.md` section 7. Anything not traceable to `package.json`, `git log`, or output run here is `Not Found`.
 
+<!-- test-count: 142 -->
+
 ## Environment
 
 - Node.js v24.19.0, Windows 11, Git Bash. Branch `feature/implementation`, HEAD `fb5fff3` (working tree has uncommitted changes, listed in `code-review.md`).
